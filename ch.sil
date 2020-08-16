@@ -1,0 +1,161 @@
+\begin[class=book]{document}
+\script[src=packages/texmode]
+\script{
+-- From sile-project/sile documentation/macros.xml
+local simpletable = SILE.require('doc_packages/simpletable')
+simpletable.init(SILE.documentState.documentClass, {
+  tableTag = 'table',
+  trTag = 'tr',
+  tdTag = 'td'
+})
+}
+\texmode[_="%]
+\script[src=doc_packages/features]
+\script[src=doc_packages/rubyA]
+\script[src=packages/frametricks]
+\script[src=packages/rotate]
+\script[src=packages/tate]
+\script[src=packages/rebox]
+\script[src=packages/linespacing]
+\script[src=packages/tableofcontents]
+\script[src=packages/pullquote]
+\script[src=packages/url]
+\script[src=packages/rules]
+\script[src=doc_packages/simpletable]
+\script[src=packages/unichar]
+\script[src=packages/pdf]
+\script[src=packages/raiselower]
+\script[src=packages/font-fallback]
+\script[src=packages/color]
+\language[main=en]
+\define[command=book:chapter:post]{\thinspace\skip}
+\define[command=open-double-page]{\eject\noindent\par}
+% \process should be single \href
+\define[command=BH]{\color[color=#000099]{\process}}
+\define[command=code]{\font[family=Latin Modern Mono]{\process}}
+\set[parameter=font.family,value=EB Garamond,makedefault=true]
+\set[parameter=font.size,value=12,makedefault=true]
+\define[command=footnote:font]{\font[size=0.9em]{\set[parameter=document.baselineskip,value=0.5ex]\process\par}}
+\font:add-fallback[family=Noto Serif CJK JP]
+\font:add-fallback[filename=./IDCHints.otf]
+\define[command=mathfourtd]{\td{\font[family=MathJax_Size4]{\process}}}
+\define[command=LaTeX]{\begin[family=Latin Modern Roman]{font}L\kern[width=-.3em]\raise[height=0.4ex]{\begin[family=Latin Modern Roman Caps]{font}A\end{font}}\kern[width=-.13em]T\kern[width=-.2em]\lower[height=0.5ex]{E}\kern[width=-.13em]X\end{font}}
+\define[command=SILE]{S\lower[height=0.5ex]{I}L\kern[width=-.2em]\raise[height=0.6ex]{\font[features=+smcp]{e}}}
+\define[command=cjk]{\begin[size=0.95em,family=Noto Serif CJK JP]{font}\process\end{font}}
+\define[command=cjkSccmp]{\begin[size=0.95em,features=+ccmp,family=Noto Sans CJK JP]{font}\process\end{font}}
+\define[command=cjkSnoccmp]{\begin[size=0.95em,features=-ccmp,family=Noto Sans CJK JP]{font}\process\end{font}}
+\typeset-into[frame=folio]{\begin[size=12pt]{font}\hfill This document was typeset with \SILE.\end{font}}
+\par\center{\font[size=24pt,weight=1000]{To compose, or not to compose?\newline}\font[size=16pt,style=Italic]{The Ideographic Description Character (IDC) sequence dual encoding problem---and a proposal for how to solve it.}}
+\remove-font-feature[Letters=SmallCaps]
+\bigskip
+\center{\font[size=18pt,weight=400]{Fredrick R. Brennan}}
+\bigskip
+"]
+\begin{table}% ㇷ゚𛅦
+%BĒNG HOK LÊ
+\font[size=18pt,weight=400]{
+\tr{\mathfourtd{\glue[width=3.9cm]⎛}\td{\glue[width=13%pw]孟福黎}\mathfourtd{⎞}}
+\tr{\mathfourtd{\glue[width=3.9cm]\rebox[width=0pt]{⎜}\rebox[width=0pt]{\lower[height=5pt]{⎜}}\raise[height=6pt]{⎜}}\td{
+\raise[height=4pt]{
+\glue[width=2.30cm]Psih\glue[width=-0.25em]\raise[height=0.3em]{\unichar{0x0302}}\glue[width=0.25em]edelisto
+}
+}\mathfourtd{\rebox[width=0pt]{\lower[height=5pt]{⎟}}\raise[height=6pt]{⎟} }}
+\tr{\mathfourtd{\glue[width=3.9cm]\rebox[width=0pt]{⎜}\rebox[width=0pt]{\lower[height=5pt]{⎜}}\raise[height=6pt]{⎜}}\td{
+{\glue[width=0.55cm]\lower[height=2pt]フレッド・ブレンナン}
+}\mathfourtd{\rebox[width=0pt]{\lower[height=5pt]{⎟}}\raise[height=6pt]{⎟} }}
+\tr{\mathfourtd{\glue[width=3.9cm]⎝}\td{\font[family=TT2020Base,style=Italic]{copypaste}\font[family=Android Emoji]{📧}\font[family=TT2020Base,style=Italic]{kittens.ph}}\mathfourtd{⎠}}
+}
+\end{table}
+\skip[height=5%ph]
+\center{\font[size=144pt]{⿺辶⿳穴⿰月⿰⿲⿱幺長⿱言馬⿱幺長刂心}}
+\skip[height=10%ph]
+\center{\font[size=18pt,weight=400]{15 August 2020}}
+\texmode[_="%]
+\nofolios\par\eject
+\par\center{\font[size=24pt,weight=1000,features=+smcp]{Acknowledgements}}
+\bigskip
+\rubyA:set[height=1em]
+\noindent Ken Lunde ({\rubyA[reading=こ]{小}\rubyA[reading=ばやし]{林}\rubyA[reading=けん]{劍}}), Unicode Consortium\\
+\begin[size=10pt]{font}
+For his font development advice, and helpful advice regarding Unihan.
+\end{font}
+\\\\
+\noindent Deborah Anderson, University of California @ Berkeley Script Encoding Initiative\\
+\font[size=10pt]{
+For her tireless review of script proposals by n00bs like me.
+}
+\\\\
+\noindent Peter Constable, Unicode Consortium\\
+\font[size=10pt]{
+For having an interesting discussion with me about the problem of IDC shaping in general.
+}
+\eject\tableofcontents
+\chapter{Quick summary}
+In short, I want U+200D, the \font[features=+smcp]{Zero Width Joiner}, to be allowed in Ideographic Description Character sequences.
+
+If this proposal is accepted, the following change to the Ideographic Description Character sequence grammar in \S{}18.2 of \em{The Unicode Standard} will be made:
+
+\section{Grammar (p. 733)}
+"]
+\begin{verbatim}
+IDS := Ideographic | Radical | CJK_Stroke | Private Use | U+FF1F
+     | IDS_BinaryOperator  Optional_NonJoiner IDS IDS
+     | IDS_TrinaryOperator Optional_NonJoiner IDS IDS IDS
+
+Optional_NonJoiner := ZWNJ | ""
+
+ZWNJ := U+200D
+
+CJK_Stroke := U+31C0 | U+31C1 | ... | U+31E3
+
+IDS_BinaryOperator := U+2FF0 | U+2FF1 | U+2FF4 | U+2FF5 | U+2FF6 | U+2FF7 | U+2FF8 | U+2FF9 | U+2FFA | U+2FFB
+
+IDS_TrinaryOperator:= U+2FF2 | U+2FF3
+\end{verbatim}
+\texmode[_="%]
+
+\section{Rendering (p. 735)}
+
+Append to the end:
+
+\pullquote{
+\noindent{}An implementation must not render an Ideographic Description Sequence that contains any U+200D, \font[features=+smcp]{Zero Width Non Joiner}. Until version 14.0, U+200D was not part of a valid Ideographic Description Sequence; now that it is, document authors are recommended to use it if the sequence is not supposed to be composed, to prevent dual encoding.
+}
+
+\section{Equivalence (p. 734)}
+Append to the end:
+
+\pullquote{
+\noindent{}No amibiguity is introduced: an IDC with \font[features=+smcp]{Zero Width Joiners} is absolutely equal to one without for comparison purposes. \font[features=+smcp]{Zero Width Joiners} should never be used in \font[family=Latin Modern Mono]{USourceData.txt}, and for most database equality purposes should be stripped out; they only matter in terms of text shaping.
+}
+
+\chapter{Rationale}
+\section{IDC sequences and dual encoding}
+We can see from an October 22, 1998 proposal, \BH{\href[src=https://www.unicode.org/L2/L1998/02n3186.pdf]{SC2 N3186}}, from Japan's liaison to SC2, “The IDS describes the ideograph in the abstract form. It is not interpreted as a composed character and does not have any rendering implication.” However, this has changed. Chapter 18, Section 2, page 735 of The Unicode Standard v13.0 reads in part: “An implementation may render a valid Ideographic Description Sequence either by rendering the individual characters separately \em{or by parsing the Ideographic Description Sequence and drawing the ideograph so described.}” [emphasis mine] There was a lot of precedent, for this, though. Indeed, John Jenkins was already doing it in 1999.\footnote{John H. Jenkins (1999). \BH{\href[src=http://mirror.informatimago.com/next/developer.apple.com/fonts/WhitePapers/IUC15Han.pdf]{“New Ideographs in Unicode 3.0 and Beyond”}}. San Jose, CA: 15th International Unicode Conference. pp. 12–21.} The Unicode Standard accepted this as valid as early as v3.0 of the standard, also released in 1999.\footnote{\BH{\href[src=http://tka4.org/materials/lib/Articles-Books/Programming/OS/The%20Unicode%20standard%20version%203.0%20(AW).pdf]{The Unicode Standard, version 3.0}}. p. 270--271.} Perhaps the best known use of IDC shaping is of the character \em{biáng}, now at U+030EDE, \cjk{⿺辶⿳穴⿰月⿰⿲⿱幺長⿱言馬⿱幺長刂心}---the esteemed Dr. Ken Lunde produced a font which contains only this glyph for the benefit of users way back in 2014.\footnote{Lunde, Ken (2014). ``\BH{\href[src=https://blogs.adobe.com/CCJKType/2014/03/ids-opentype.html]{IDS + OpenType: Pseudo-encoding Unencoded Glyphs}}''. Adobe CJK Type Blog.}
+
+This, of course, leads to dual encoding: that is to say, The Unicode Standard allows the same sequence of glyphs to appear two radically different ways in plaintext, and there's no way to differentiate between them. This has so far not been much of a problem; so much so that no one has complained in twenty years. IDC sequences are almost always in practice displayed uncomposed, that is to say, the IDC sequence for the name of my pet Pomeranian, Hitomi,\footnote{\BH{\href[src=https://twitter.com/HW_BEAT_THAT/status/1294060630228443136]{Hitomi likes ideographs.}}} \cjk{⿰目童⿱𦍌大}, will not be composed to \cjk{瞳美}. In the rare cases where IDC sequences are currently composed, it is always because a document author has specifically chosen to include a font which will compose only a certain few sequences the author knows about, and which they can turn on and off.
+
+However, there are good reasons to believe that this will soon change. In one regard it's already changed: the wildly popular Source Han fonts, also by Dr. Lunde, compose the following four IDC sequences by default:\footnote{Lunde, Ken (2019). \BH{\href[src=https://raw.githubusercontent.com/adobe-fonts/source-han-sans/release/SourceHanSansReadMe.pdf]{ReadMe for Source Han Sans Version 2.001}}. pp. 13--14.} 
+
+\cjkSccmp{
+⿰氵恩 ⇐ \cjkSnoccmp{⿰氵恩}\\
+⿺辶⿳穴⿰月⿰⿲⿱幺长⿱言马⿱幺长刂心 ⇐ \cjkSnoccmp{⿺辶⿳穴⿰月⿰⿲⿱幺长⿱言马⿱幺长刂心}\\
+⿺辶⿳穴⿰月⿰⿲⿱幺長⿱言馬⿱幺長刂心 ⇐ \cjkSnoccmp{⿺辶⿳穴⿰月⿰⿲⿱幺長⿱言馬⿱幺長刂心}\\
+⿳雲⿲雲龍雲⿰龍龍 ⇐ \cjkSnoccmp{⿳雲⿲雲龍雲⿰龍龍}
+}
+
+Given that Source Han is an extremely high quality open source font, it's already shown up in many open source operating systems. Its documentation is essentially a to-do list for any company producing a similar font, and Dr. Lunde is recognized widely as an expert on CJK fonts, so its influence is not going away any time soon. Indeed, the Noto CJK project also shapes all four sequences in its Sans font and the IDC sequence for the \cjk{⿺辶⿳穴⿰月⿰⿲⿱幺長⿱言馬⿱幺長刂心}'s in its serif: I am using it in this very paper.
+
+One can say, ``well simply disable \code{ccmp}''. And indeed that's what I've done in this paper to typeset the above examples. But Unicode is for plaintext, and there's no way to disable \code{ccmp} in a tweet, certainly not one that's already sent.
+
+There is a second reason to expect change in the area of IDC sequences: The Unicode Standard allows implementors to shape arbitrary IDC sequences, and I am very interested in doing so. I recently wrote an entire paper about it,\footnote{Brennan, Fredrick (2020). ``\BH{\href[src=https://docs.google.com/document/d/1NYKsNOjkOamIRdfMReZfxAhtOUMiHNm_TIidb0Daob4/edit?usp=sharing]{Shaping Ideographic Description Sequences}}''. Text Shaping Working Group (TSWG).} and plan to do whatever I can to further the state of the art on this matter. As I demonstrate in that paper, it is already simple to shape arbitrary IDC sequences up to a certain recursion depth allowing for some ugliness of glyphs. In the paper I mainly talk about ways we can make the glyphs nicer and increase the recursion depth, but it is indeed already possible to shape the majority of IDC sequences with already existing standards and technology without breaking any of the standards. Stroke fonts in OpenType (with font-specifiable caps) and ways to specify regular expressions defining runs that can (or cannot, as the case may be) would be nice, but are not imperative for shaping IDC sequences.
+
+Why would one want to shape arbitrary IDC sequences? I see two main use cases: first, to use popular characters which are currently somewhere along the winding path between proposal to encoding, such as \cjk{⿺辶⿳穴⿰月⿰⿲⿱幺長⿱言馬⿱幺長刂心}, which took five years to be encoded. Second, to support neologisms, which no one knows whether or not they will become popular enough to be encoded or not. In the past, it was common for new Chinese (and Japanese) characters to be invented, but now, old characters are simply given new meanings or new compounds are made; to create a neologism and have it stick is quite impossible in the digital age, as the current system places too many barriers in the way of users. I went into more detail on Quora in 2018, which is when I began considering this issue.\footnote{Brennan, Fredrick (2018). \BH{\href[src=https://www.quora.com/What-are-the-disadvantages-of-typography/answer/Fredrick-Brennan]{Answer to ``What are the disadvantages of typography?''}}. Quora. In 2019 I solved the problem I dubbed \em{Uniformity} to my satisfaction with the release of \BH{\href[src=https://github.com/ctrlcctrlv]{TT2020}} (I also consider the excellent work many have done on adopting the OpenType \code{rand} feature part of the answer), now I am to solve the one I dubbed \em{Stagnation}.}
+
+I don't mean to say that we should stop encoding new blocks of CJK characters. Not at all. And, indeed, no matter how much I work to tweak IDC shaping, there will always be edge cases that are not well handled, and a font with a glyph specifically drawn for a given character will look better than a computer's attempt to shape it. Shaped IDC's will always be below encoded characters.
+
+In any event, it is possible right now to shape IDC's, and with the wide dissemination as of this writing of HarfBuzz, I'd say inevitable. Someone in China is probably working on it right now; there may indeed already be a font out there which can shape IDC sequences for all the Kanxi radicals to a recursion depth of 2, and my inability to speak Chinese well (I speak Japanese only marginally better) means I cannot find it. \font[family=DejaVu Sans]{😉} 
+
+And this is only considering OpenType; if we throw \LaTeX into the mix, there is a long history of Chinese character description languages and \LaTeX;\footnote{Wong, Wai, et al. (2003). ``\BH{\href[src=https://www.tug.org/TUGboat/tb24-3/wong.pdf]{Typesetting Rare Chinese Characters in \LaTeX}}''.\em{TUGboat}, Volume 24 (2003), No. 3} Certainly, \LaTeX can shape arbitrary IDC sequences. Graphite fonts may be able to do so as well.
+"]
+\end{document}
