@@ -91,7 +91,7 @@ For having an interesting discussion with me about the problem of IDC shaping in
 }
 \eject\tableofcontents
 \chapter{Quick summary}
-In short, I want U+200D, the \font[features=+smcp]{Zero Width Joiner}, to be allowed in Ideographic Description Character sequences.
+In short, I want U+200C, the \font[features=+smcp]{Zero Width Non Joiner}, to be allowed in Ideographic Description Character sequences.
 
 If this proposal is accepted, the following change to the Ideographic Description Character sequence grammar in \S{}18.2 of \em{The Unicode Standard} will be made:
 
@@ -104,7 +104,7 @@ IDS := Ideographic | Radical | CJK_Stroke | Private Use | U+FF1F
 
 Optional_NonJoiner := ZWNJ | ""
 
-ZWNJ := U+200D
+ZWNJ := U+200C
 
 CJK_Stroke := U+31C0 | U+31C1 | ... | U+31E3
 
@@ -119,7 +119,7 @@ IDS_TrinaryOperator:= U+2FF2 | U+2FF3
 Append to the end:
 
 \pullquote{
-\noindent{}An implementation must not render an Ideographic Description Sequence that contains any U+200D, \font[features=+smcp]{Zero Width Non Joiner}. Until version 14.0, U+200D was not part of a valid Ideographic Description Sequence; now that it is, document authors are recommended to use it if the sequence is not supposed to be composed, to prevent dual encoding.
+\noindent{}An implementation must not render an Ideographic Description Sequence that contains any U+200C, \font[features=+smcp]{Zero Width Non Joiner}. Until version 14.0, U+200C was not part of a valid Ideographic Description Sequence; now that it is, document authors are recommended to use it if the sequence is not supposed to be composed, to prevent dual encoding.
 }
 
 \section{Equivalence (p. 734)}
