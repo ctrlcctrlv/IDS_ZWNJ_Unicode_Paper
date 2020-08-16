@@ -131,7 +131,7 @@ Append to the end:
 
 \chapter{Rationale}
 \section{IDC sequences and dual encoding}
-We can see from an October 22, 1998 proposal, \BH{\href[src=https://www.unicode.org/L2/L1998/02n3186.pdf]{SC2 N3186}}, from Japan's liaison to SC2, “The IDS describes the ideograph in the abstract form. It is not interpreted as a composed character and does not have any rendering implication.” However, this has changed. Chapter 18, Section 2, page 735 of The Unicode Standard v13.0 reads in part: “An implementation may render a valid Ideographic Description Sequence either by rendering the individual characters separately \em{or by parsing the Ideographic Description Sequence and drawing the ideograph so described.}” [emphasis mine] There was a lot of precedent, for this, though. Indeed, John Jenkins was already doing it in 1999.\footnote{John H. Jenkins (1999). \BH{\href[src=http://mirror.informatimago.com/next/developer.apple.com/fonts/WhitePapers/IUC15Han.pdf]{“New Ideographs in Unicode 3.0 and Beyond”}}. San Jose, CA: 15th International Unicode Conference. pp. 12–21.} The Unicode Standard accepted this as valid as early as v3.0 of the standard, also released in 1999.\footnote{\BH{\href[src=http://tka4.org/materials/lib/Articles-Books/Programming/OS/The%20Unicode%20standard%20version%203.0%20(AW).pdf]{The Unicode Standard, version 3.0}}. p. 270--271.} Perhaps the best known use of IDC shaping is of the character \em{biáng}, now at U+030EDE, \cjk{⿺辶⿳穴⿰月⿰⿲⿱幺長⿱言馬⿱幺長刂心}---the esteemed Dr. Ken Lunde produced a font which contains only this glyph for the benefit of users way back in 2014.\footnote{Lunde, Ken (2014). ``\BH{\href[src=https://blogs.adobe.com/CCJKType/2014/03/ids-opentype.html]{IDS + OpenType: Pseudo-encoding Unencoded Glyphs}}''. Adobe CJK Type Blog.}
+We can see from an October 22, 1998 proposal, \BH{\href[src=https://www.unicode.org/L2/L1998/02n3186.pdf]{SC2 N3186}}, from Japan's liaison to SC2, “The IDS describes the ideograph in the abstract form. It is not interpreted as a composed character and does not have any rendering implication.” However, this has changed. Chapter 18, Section 2, page 735 of The Unicode Standard v13.0 reads in part: “An implementation may render a valid Ideographic Description Sequence either by rendering the individual characters separately \em{or by parsing the Ideographic Description Sequence and drawing the ideograph so described.}” [emphasis mine] There was a lot of precedent, for this, though. Indeed, John Jenkins was already doing it in 1999.\footnote{John H. Jenkins (1999). \BH{\href[src=http://mirror.informatimago.com/next/developer.apple.com/fonts/WhitePapers/IUC15Han.pdf]{“New Ideographs in Unicode 3.0 and Beyond”}}. San Jose, CA: 15th International Unicode Conference. pp. 12–21.} The Unicode Standard accepted this as valid as early as v3.0 of the standard, also released in 1999.\footnote{\BH{\href[src=http://tka4.org/materials/lib/Articles-Books/Programming/OS/The%20Unicode%20standard%20version%203.0%20(AW).pdf]{The Unicode Standard, version 3.0}}. p. 270--271.} Perhaps the best known use of IDC shaping is of the character \em{biáng}, now at U+30EDE, \cjk{⿺辶⿳穴⿰月⿰⿲⿱幺長⿱言馬⿱幺長刂心}---the esteemed Dr. Ken Lunde produced a font which contains only this glyph for the benefit of users way back in 2014.\footnote{Lunde, Ken (2014). ``\BH{\href[src=https://blogs.adobe.com/CCJKType/2014/03/ids-opentype.html]{IDS + OpenType: Pseudo-encoding Unencoded Glyphs}}''. Adobe CJK Type Blog.}
 
 This, of course, leads to dual encoding: that is to say, The Unicode Standard allows the same sequence of glyphs to appear two radically different ways in plaintext, and there's no way to differentiate between them. This has so far not been much of a problem; so much so that no one has complained in twenty years. IDC sequences are almost always in practice displayed uncomposed, that is to say, the IDC sequence for the name of my pet Pomeranian, Hitomi,\footnote{\BH{\href[src=https://twitter.com/HW_BEAT_THAT/status/1294060630228443136]{Hitomi likes ideographs.}}} \cjk{⿰目童⿱𦍌大}, will not be composed to \cjk{瞳美}. In the rare cases where IDC sequences are currently composed, it is always because a document author has specifically chosen to include a font which will compose only a certain few sequences the author knows about, and which they can turn on and off.
 
@@ -157,5 +157,38 @@ I don't mean to say that we should stop encoding new blocks of CJK characters. N
 In any event, it is possible right now to shape IDC's, and with the wide dissemination as of this writing of HarfBuzz, I'd say inevitable. Someone in China is probably working on it right now; there may indeed already be a font out there which can shape IDC sequences for all the Kanxi radicals to a recursion depth of 2, and my inability to speak Chinese well (I speak Japanese only marginally better) means I cannot find it. \font[family=DejaVu Sans]{😉} 
 
 And this is only considering OpenType; if we throw \LaTeX into the mix, there is a long history of Chinese character description languages and \LaTeX;\footnote{Wong, Wai, et al. (2003). ``\BH{\href[src=https://www.tug.org/TUGboat/tb24-3/wong.pdf]{Typesetting Rare Chinese Characters in \LaTeX}}''.\em{TUGboat}, Volume 24 (2003), No. 3} Certainly, \LaTeX can shape arbitrary IDC sequences. Graphite fonts may be able to do so as well.
+
+\chapter{Evidence of dual encoding}
+\section{Tweet}
+
+I sent a tweet with this text:
+
 "]
+\font[features=-ccmp]{
+\begin{verbatim}
+\par\noindent Sure! Here are the four IDS's which most often combine:
+\par\noindent 
+\par\noindent ⿰氵恩 
+\par\noindent ⿺辶⿳穴⿰月⿰⿲⿱幺长⿱言马⿱幺长刂心 
+\par\noindent ⿺辶⿳穴⿰月⿰⿲⿱幺長⿱言馬⿱幺長刂心
+\par\noindent ⿳雲⿲雲龍雲⿰龍龍
+\par\noindent 
+\par\noindent Both in Source Han and Noto CJK these silently combine by default as they are in `ccmp` feature
+\end{verbatim}
+}
+
+\noindent{}I did not mean for composition to happen, yet on many platforms it does:
+\section{Chrome on Android 10 on Pixel 2 XL}
+\script[src=packages/image]
+\img[src=Chrome on Android 10 on Pixel 2 XL.png,height=15%ph]
+
+\section{Firefox on Android 10 on Huawei P30}
+\img[src=Firefox on Android 10 on Huawei P30.jpeg,height=15%ph]
+
+\section{Firefox on Windows 10}
+\img[src=Firefox on Windows 10.png,height=15%ph]
+
+\section{Firefox on Xubuntu Linux 20.04}
+\img[src=Firefox on Xubuntu Linux 20.04.png,height=15%ph]
+
 \end{document}
