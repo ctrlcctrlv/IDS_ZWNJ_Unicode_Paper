@@ -126,7 +126,7 @@ Append to the end:
 Append to the end:
 
 \pullquote{
-\noindent{}No amibiguity is introduced: an IDC with \font[features=+smcp]{Zero Width Joiners} is absolutely equal to one without for comparison purposes. \font[features=+smcp]{Zero Width Joiners} should never be used in \font[family=Latin Modern Mono]{USourceData.txt}, and for most database equality purposes should be stripped out; they only matter in terms of text shaping.
+\noindent{}An IDC with \font[features=+smcp]{Zero Width Non Joiners} is absolutely equal to one without for comparison purposes. \font[features=+smcp]{Zero Width Non Joiners} should never be used in \font[family=Latin Modern Mono]{USourceData.txt}, and for most database equality purposes should be stripped out; they only matter in terms of text shaping.
 }
 
 \chapter{Rationale}
